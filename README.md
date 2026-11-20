@@ -5,8 +5,8 @@ collections and downloads it. By default it searches the [Live Music Archive](ht
 (concert recordings shared with the bands' permission) and [netlabels](https://archive.org/details/netlabels)
 (releases under Creative Commons licences).
 
-It runs beside [Melodex](https://github.com/dextrd/Melodex) as a container of its own, which Melodex reaches over the
-[retrieval plugin contract](https://github.com/dextrd/Melodex/blob/main/docs/contracts/README.md).
+It runs beside [Melodex](https://github.com/Dextrd/Melodex) as a container of its own, which Melodex reaches over the
+[retrieval plugin contract](https://github.com/Dextrd/Melodex/blob/main/docs/contracts/README.md).
 
 ## What it does
 
