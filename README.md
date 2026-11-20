@@ -5,7 +5,8 @@ collections and downloads it. By default it searches the [Live Music Archive](ht
 (concert recordings shared with the bands' permission) and [netlabels](https://archive.org/details/netlabels)
 (releases under Creative Commons licences).
 
-It lives in the Melodex repository for now and will move to its own repository later.
+It runs beside [Melodex](https://github.com/dextrd/Melodex) as a container of its own, which Melodex reaches over the
+[retrieval plugin contract](https://github.com/dextrd/Melodex/blob/main/docs/contracts/README.md).
 
 ## What it does
 
@@ -28,14 +29,24 @@ setting picks which one is fetched.
 | `collections` | `etree, netlabels` | The collections to search, separated by commas. |
 | `minScore` | `0.6` | Items that match less well than this aren't offered. |
 
-## Running it
+## Adding it to Melodex
+
+Add this under `services:` in the compose file you run Melodex with, beside `core` and `beets-worker`, so it shares
+their `staging` volume:
 
 ```yaml
-retriever-archive:
-  build: plugins/retriever-archive
-  volumes:
-    - staging:/staging
+  retriever-archive:
+    image: ghcr.io/dextrd/melodex-retriever-archive:latest
+    container_name: melodex-retriever-archive
+    user: "${PUID:-1000}:${PGID:-1000}"
+    restart: unless-stopped
+    volumes:
+      - staging:/staging
 ```
+
+Then start it with `docker compose up -d`. `latest` follows each release; to choose when it changes, use a version
+such as `2` or `2.0.0` instead. On SELinux hosts with podman, give it the same `security_opt` as Melodex's own
+containers.
 
 Then add `http://retriever-archive:8080` under Settings → Plugins in Melodex (it's one of the templates under Add).
 
